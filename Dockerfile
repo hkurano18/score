@@ -34,7 +34,7 @@ FROM ubuntu:24.04 AS client
 ENV CLIENT_DIST_DIR=/score-client-dist
 ENV SCORE_CLIENT_HOME=/score-client
 ENV SCORE_USER=score
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$SCORE_CLIENT_HOME/bin:$JAVA_HOME/bin
 
 # Add score user, update apt, add FUSE support and basic command line tools
@@ -45,7 +45,7 @@ RUN useradd $SCORE_USER \
     curl \
     fuse3 \
     libfuse2 \
-    openjdk-17-jre-headless \
+    openjdk-11-jre-headless \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir $SCORE_CLIENT_HOME
 
