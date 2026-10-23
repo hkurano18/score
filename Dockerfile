@@ -18,13 +18,13 @@ RUN ./mvnw -pl score-client -am package -DskipTests
 
 # Prepare client dist
 RUN cd score-client/target \
-	&& mv score-client-*-dist.tar.gz score-client.tar.gz \
+    && mv score-client-*-dist.tar.gz score-client.tar.gz \
     && tar zxvf score-client.tar.gz -C /tmp \
     && mv -f /tmp/score-client-* /tmp/score-client-dist \
     && cp -r /tmp/score-client-dist $CLIENT_DIST_DIR \
-	&& mkdir -p $CLIENT_DIST_DIR/logs \
-	&& touch $CLIENT_DIST_DIR/logs/client.log \
-	&& chmod 777 $CLIENT_DIST_DIR/logs/client.log
+    && mkdir -p $CLIENT_DIST_DIR/logs \
+    && touch $CLIENT_DIST_DIR/logs/client.log \
+    && chmod 777 $CLIENT_DIST_DIR/logs/client.log
 
 ###############################
 # Score Client
@@ -41,11 +41,11 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$SCORE_CLI
 RUN useradd $SCORE_USER \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
-        fuse3 \
-        libfuse2 \
-        openjdk-17-jre-headless \
+    ca-certificates \
+    curl \
+    fuse3 \
+    libfuse2 \
+    openjdk-17-jre-headless \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir $SCORE_CLIENT_HOME
 
