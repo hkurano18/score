@@ -29,19 +29,23 @@ RUN cd score-client/target \
 ###############################
 # Score Client
 ###############################
-FROM adoptopenjdk/openjdk17:latest AS client
+FROM ubuntu:24.04 AS client
 
 ENV CLIENT_DIST_DIR=/score-client-dist
 ENV SCORE_CLIENT_HOME=/score-client
 ENV SCORE_USER=score
-ENV JAVA_HOME=/opt/java/openjdk
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$SCORE_CLIENT_HOME/bin:$JAVA_HOME/bin
 
 # Add score user, update apt, add FUSE support and basic command line tools
 RUN useradd $SCORE_USER \
     && apt-get update \
-    && apt-get -y upgrade \
-    && apt-get install -y libfuse-dev fuse curl wget software-properties-common \
+    && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    fuse3 \
+    libfuse2 \
+    openjdk-17-jre-headless \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir $SCORE_CLIENT_HOME
 
